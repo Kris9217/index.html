@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV et Lettre de Motivation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Mon Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="cv.html">CV et Lettre de Motivation</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="games.html">Mini Jeux</a></li>
+                <li><a href="contact.html">Me Contacter</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab-button" onclick="showContent('cv')">CV</button>
+            <button class="tab-button" onclick="showContent('lettre')">Lettre de Motivation</button>
+        </div>
+        
+        <div class="tab-content" id="cv-content">
+            <h2>Mon CV</h2>
+            <iframe src="assets/docs/cv.pdf" class="document-viewer"></iframe>
+        </div>
+        
+        <div class="tab-content" id="lettre-content" style="display: none;">
+            <h2>Ma Lettre de Motivation</h2>
+            <iframe src="assets/docs/lettre_de_motivation.pdf" class="document-viewer"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sionneau Christopher. Tous droits réservés.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

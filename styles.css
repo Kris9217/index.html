@@ -1,0 +1,351 @@
+/* Réinitialisation des styles par défaut du navigateur */
+body, h1, h2, h3, p, a, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+}
+
+body {
+    overflow: hidden;
+    background-color: #000;
+}
+
+/* Styles pour le fond étoilé */
+#starry-background {
+    position: relative;
+    background-image: url('assets/images/starry-night.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #f9f9f9;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 3px #f9f9f9;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.star:hover {
+    transform: scale(1.5);
+    box-shadow: 0 0 18px 6px #fffae6;
+}
+
+/* Menu */
+.menu-item {
+    display: none;
+    position: absolute;
+    padding: 8px 15px;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.7); /* Couleur de fond avec plus d'opacité */
+    border-radius: 5px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombre au texte pour plus de lisibilité */
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 1000;
+    pointer-events: none; /* Empêche le survol et le clic direct */
+}
+
+.menu-item::after {
+    display: none;
+    content: attr(data-link-text);
+    position: absolute;
+    bottom: -30px;
+    left: -10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Styles pour les liens */
+a {
+    color: #4db8ff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #fffae6;
+}
+
+/* Styles pour les éléments de la page CV et Lettre de Motivation */
+body, h1, h2, h3, p, a, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+body {
+    background-color: #f4f4f9;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #4db8ff;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #fffae6;
+    color: #333;
+    border-radius: 5px;
+}
+
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: #ddd;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    color: #333;
+}
+
+.tab-button:hover {
+    background-color: #4db8ff;
+    color: #fff;
+}
+
+.tab-button.active {
+    background-color: #4db8ff;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.document-viewer {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+footer {
+    background-color: #4db8ff;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+/* Centrage du contenu principal */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Utiliser min-height pour assurer le centrage même si le contenu est plus petit */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Centrage spécifique pour les textes */
+.center-content h1,
+.center-content h2,
+.center-content p {
+    max-width: 800px;
+    margin: 20px 0;
+}
+
+/* Style pour le formulaire de contact */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.contact-form button {
+    padding: 10px;
+    background-color: #4db8ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #368cbf;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Styles spécifiques pour le jeu */
+#breakoutCanvas {
+    border: 1px solid #000;
+    background-color: #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+#startGame {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#startGame:hover {
+    background-color: #0056b3;
+}
+
+.score {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.message {
+    font-size: 24px;
+    color: #f00;
+    margin-top: 10px;
+    display: none; /* Affiche le message à la fin du jeu */
+}
+
+/* Styles spécifiques pour le chatbot */
+#chatbox {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#chat-output {
+    height: 300px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    background: #f9f9f9;
+    text-align: left;
+}
+
+.user-message, .bot-message {
+    margin: 10px 0;
+}
+
+.user-message {
+    text-align: right;
+}
+
+.bot-message {
+    text-align: left;
+}
+
+#chat-input {
+    width: calc(100% - 80px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#send-btn {
+    width: 70px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4db8ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-btn:hover {
+    background-color: #368cbf;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #4db8ff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
