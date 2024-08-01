@@ -14,8 +14,8 @@ let ballSpeedY = -2;
 let ballColor = "#ff6b6b";
 
 // Propriétés de la raquette
-const paddleHeight = 10;
-const paddleWidth = 75;
+let paddleHeight = 10;
+let paddleWidth = 75;
 let paddleX;
 let paddleColor = "#6bffb3";
 const paddleSpeed = 7;
@@ -71,14 +71,24 @@ function resizeCanvas() {
   ballX = canvasWidth / 2;
   ballY = canvasHeight - 30;
   paddleX = (canvasWidth - paddleWidth) / 2;
+  paddleHeight = canvasHeight * 0.03; // Ajuste la hauteur de la raquette en fonction de la hauteur du canvas
+  paddleWidth = canvasWidth * 0.2; // Ajuste la largeur de la raquette en fonction de la largeur du canvas
 
   // Calcule les nouvelles positions des briques
   const totalBrickWidth = brickColumnCount * (brickWidth + brickPadding) - brickPadding;
   const totalBrickHeight = brickRowCount * (brickHeight + brickPadding) - brickPadding;
   brickOffsetLeft = (canvasWidth - totalBrickWidth) / 2;
   brickOffsetTop = (canvasHeight - totalBrickHeight) / 2;
-}
 
+  // Positionne les boutons directionnels
+  const buttonWidth = 80;
+  const buttonHeight = 80;
+  const buttonMargin = 10;
+  const directionalButtons = document.querySelector(".directional-buttons");
+  directionalButtons.style.left = `${buttonMargin}px`;
+  directionalButtons.style.right = `${buttonMargin}px`;
+  directionalButtons.style.bottom = `${buttonMargin}px`;
+}
 
 // Initialise le jeu
 function init() {
@@ -95,9 +105,7 @@ function init() {
     }
   }
   gameOver = false; // Réinitialise l'état du jeu
-  draw(); // Démarre le jeu
 }
-
 
 // Génère une couleur aléatoire pour les briques
 function getRandomColor() {
@@ -146,24 +154,23 @@ function drawBricks() {
   }
 }
 
-
 // Dessine le score
 function drawScore() {
   ctx.font = "16px Arial"; // Définit la taille de la police
   ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
   ctx.textAlign = "left";  // Aligne le texte à gauche
-  ctx.fillText("Score: " + score, 8, 20); // Affiche le score dans le coin supérieur gauche
+  ctx.fillText("Score: " + score, 8, 20); // Affiche le score
 }
 
 // Dessine les vies restantes
 function drawLives() {
-  ctx.font = "16px Arial"; // Définit la taille de la police
-  ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
-  ctx.textAlign = "right"; // Aligne le texte à droite
-  ctx.fillText("Vies: " + lives, canvasWidth - 8, 20); // Affiche les vies dans le coin supérieur droit
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#fff";
+  ctx.textAlign = "right";
+  ctx.fillText("Vies: " + lives, canvasWidth - 8, 20);
 }
 
-// Gère la détection de collision
+// Vérifie les collisions entre la balle et les briques
 function collisionDetection() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -229,7 +236,10 @@ function update() {
   }
 }
 
-// Gère les touches pressées pour le mouvement de la raquette
+// Gère les boutons directionnels
+const leftButton = document.getElementById('leftButton');
+const rightButton = document.getElementById('rightButton');
+
 let rightPressed = false;
 let leftPressed = false;
 
@@ -253,25 +263,18 @@ function keyUpHandler(e) {
   }
 }
 
-// Ajoute la gestion des contrôles tactiles
-canvas.addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  const touch = e.touches[0];
-  const touchX = touch.clientX;
-  const canvasRect = canvas.getBoundingClientRect();
-  const touchXRelative = touchX - canvasRect.left;
-
-  if (touchXRelative < canvas.width / 2) {
-    leftPressed = true;
-    rightPressed = false;
-  } else {
-    rightPressed = true;
-    leftPressed = false;
-  }
+// Gère les événements de clic sur les boutons directionnels
+leftButton.addEventListener('touchstart', () => {
+  leftPressed = true;
+  rightPressed = false;
 });
 
-canvas.addEventListener('touchend', (e) => {
-  e.preventDefault();
+rightButton.addEventListener('touchstart', () => {
+  rightPressed = true;
+  leftPressed = false;
+});
+
+document.addEventListener('touchend', () => {
   leftPressed = false;
   rightPressed = false;
 });
@@ -328,9 +331,8 @@ document.getElementById("startGame").addEventListener("click", () => {
   document.getElementById("startGame").style.display = "none";
   backgroundMusic.play().catch(error => console.error("Erreur lors de la lecture de la musique de fond :", error));
   init(); // Initialise le jeu après avoir commencé la musique
+  draw(); // Démarre le dessin du jeu
 });
 
 // Appelle resizeCanvas lors du redimensionnement de la fenêtre
 window.addEventListener('resize', resizeCanvas);
-
-resizeCanvas

@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Jeux</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Styles pour les boutons directionnels */
+      .directional-buttons {
+        position: absolute;
+        bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 10px;
+      }
+
+      #leftButton, #rightButton {
+        width: 80px;
+        height: 80px;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      #leftButton {
+        text-align: center;
+        border-radius: 50%;
+      }
+
+      #rightButton {
+        text-align: center;
+        border-radius: 50%;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
 </head>
 <body>
     <header>
@@ -23,8 +58,13 @@
 
     <main class="center-content">
         <div class="game-container">
+            <div class="landscape-message">Veuillez passer votre appareil en orientation paysage pour jouer.</div>
             <button id="startGame">Commencer le jeu</button>
-            <canvas id="breakoutCanvas" style="border:1px solid #000;"></canvas>
+            <canvas id="breakoutCanvas"></canvas>
+            <div class="directional-buttons">
+                <button id="leftButton">←</button>
+                <button id="rightButton">→</button>
+            </div>
         </div>
     </main>
 
@@ -35,6 +75,8 @@
     <script src="breakout.js"></script>
 </body>
 </html>
+
+
 
 
 
