@@ -12,7 +12,29 @@ function cleanInput(input) {
         .replace(/\s{2,}/g, ' '); // Remplace les espaces multiples par un seul espace
 }
 
-// Gestion des messages et du son
+// Fonction pour gérer les choix multiples
+function getBotChoiceResponse(input) {
+    const cleanedInput = cleanInput(input);
+    const choiceResponses = {
+        "répétition": [
+            "Vous pouvez reformuler votre question.",
+            "Essayez de poser la question différemment."
+        ],
+        "aide": [
+            "Je suis ici pour vous aider avec toutes vos questions.",
+            "N'hésitez pas à demander de l'aide pour tout ce dont vous avez besoin."
+        ]
+    };
+
+    for (const [keyword, responses] of Object.entries(choiceResponses)) {
+        if (cleanedInput.includes(keyword)) {
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+    }
+    return null;
+}
+
+// Fonction pour gérer les réponses du bot
 function handleBotResponse(userInput) {
     const chatOutput = document.getElementById('chat-output');
     chatOutput.innerHTML += `<div class="user-message"><strong>Vous:</strong> ${userInput}</div>`;
@@ -20,7 +42,8 @@ function handleBotResponse(userInput) {
 
     // Délai avant de répondre pour simuler la réflexion du bot
     setTimeout(() => {
-        const botResponse = getBotResponse(userInput);
+        const choiceResponse = getBotChoiceResponse(userInput);
+        const botResponse = choiceResponse || getBotResponse(userInput);
         chatOutput.innerHTML += `<div class="bot-message"><strong>Bot:</strong> ${botResponse}</div>`;
         chatOutput.scrollTop = chatOutput.scrollHeight;
 

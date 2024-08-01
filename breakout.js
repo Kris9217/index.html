@@ -3,8 +3,8 @@ const canvas = document.getElementById("breakoutCanvas");
 const ctx = canvas.getContext("2d");
 
 // Dimensions du canvas
-const canvasWidth = canvas.width;
-const canvasHeight = canvas.height;
+let canvasWidth = canvas.width;
+let canvasHeight = canvas.height;
 
 // Propriétés de la balle
 const ballRadius = 10;
@@ -26,8 +26,8 @@ const brickColumnCount = 9;
 const brickWidth = 50;
 const brickHeight = 20;
 const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
+let brickOffsetTop = 30;
+let brickOffsetLeft = 30;
 let bricks = [];
 
 // Score du joueur
@@ -60,25 +60,44 @@ loseLifeSound.onerror = () => console.error("Erreur de chargement du son loseLif
 gameOverSound.onerror = () => console.error("Erreur de chargement du son gameOverSound");
 backgroundMusic.onerror = () => console.error("Erreur de chargement du son backgroundMusic");
 
+// Ajuste la taille du canvas à la taille de la fenêtre
+function resizeCanvas() {
+  canvas.width = window.innerWidth * 0.9; // 90% de la largeur de la fenêtre
+  canvas.height = window.innerHeight * 0.6; // 60% de la hauteur de la fenêtre
+
+  // Recalcule les dimensions du jeu après redimensionnement
+  canvasWidth = canvas.width;
+  canvasHeight = canvas.height;
+  ballX = canvasWidth / 2;
+  ballY = canvasHeight - 30;
+  paddleX = (canvasWidth - paddleWidth) / 2;
+
+  // Calcule les nouvelles positions des briques
+  const totalBrickWidth = brickColumnCount * (brickWidth + brickPadding) - brickPadding;
+  const totalBrickHeight = brickRowCount * (brickHeight + brickPadding) - brickPadding;
+  brickOffsetLeft = (canvasWidth - totalBrickWidth) / 2;
+  brickOffsetTop = (canvasHeight - totalBrickHeight) / 2;
+}
+
+
 // Initialise le jeu
 function init() {
-    ballX = canvasWidth / 2;
-    ballY = canvasHeight - 30;
-    ballSpeedX = 2;
-    ballSpeedY = -2;
-    paddleX = (canvasWidth - paddleWidth) / 2;
-    score = 0;
-    lives = 3;
-    bricks = [];
-    for (let c = 0; c < brickColumnCount; c++) {
-      bricks[c] = [];
-      for (let r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1, color: getRandomColor() };
-      }
+  resizeCanvas(); // Réajuste la taille du canvas
+  ballSpeedX = 2;
+  ballSpeedY = -2;
+  score = 0;
+  lives = 3;
+  bricks = [];
+  for (let c = 0; c < brickColumnCount; c++) {
+    bricks[c] = [];
+    for (let r = 0; r < brickRowCount; r++) {
+      bricks[c][r] = { x: 0, y: 0, status: 1, color: getRandomColor() };
     }
-    gameOver = false; // Réinitialise l'état du jeu
-    draw(); // Démarre le jeu
+  }
+  gameOver = false; // Réinitialise l'état du jeu
+  draw(); // Démarre le jeu
 }
+
 
 // Génère une couleur aléatoire pour les briques
 function getRandomColor() {
@@ -127,21 +146,22 @@ function drawBricks() {
   }
 }
 
+
 // Dessine le score
 function drawScore() {
-    ctx.font = "16px Arial"; // Définit la taille de la police
-    ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
-    ctx.textAlign = "left";  // Aligne le texte à gauche
-    ctx.fillText("Score: " + score, 8, 20); // Affiche le score dans le coin supérieur gauche
-  }
-  
-  // Dessine les vies restantes
-  function drawLives() {
-    ctx.font = "16px Arial"; // Définit la taille de la police
-    ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
-    ctx.textAlign = "right"; // Aligne le texte à droite
-    ctx.fillText("Vies: " + lives, canvasWidth - 8, 20); // Affiche les vies dans le coin supérieur droit
-  }
+  ctx.font = "16px Arial"; // Définit la taille de la police
+  ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
+  ctx.textAlign = "left";  // Aligne le texte à gauche
+  ctx.fillText("Score: " + score, 8, 20); // Affiche le score dans le coin supérieur gauche
+}
+
+// Dessine les vies restantes
+function drawLives() {
+  ctx.font = "16px Arial"; // Définit la taille de la police
+  ctx.fillStyle = "#fff";  // Définit la couleur du texte (blanc)
+  ctx.textAlign = "right"; // Aligne le texte à droite
+  ctx.fillText("Vies: " + lives, canvasWidth - 8, 20); // Affiche les vies dans le coin supérieur droit
+}
 
 // Gère la détection de collision
 function collisionDetection() {
@@ -233,10 +253,33 @@ function keyUpHandler(e) {
   }
 }
 
+// Ajoute la gestion des contrôles tactiles
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const touchX = touch.clientX;
+  const canvasRect = canvas.getBoundingClientRect();
+  const touchXRelative = touchX - canvasRect.left;
+
+  if (touchXRelative < canvas.width / 2) {
+    leftPressed = true;
+    rightPressed = false;
+  } else {
+    rightPressed = true;
+    leftPressed = false;
+  }
+});
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  leftPressed = false;
+  rightPressed = false;
+});
+
 // Réinitialise le jeu en rechargeant la page
 function resetGame() {
-    location.reload(); // Recharge la page pour réinitialiser le jeu
-  }
+  location.reload(); // Recharge la page pour réinitialiser le jeu
+}
 
 // Fonction de fin de jeu
 function endGame(result, message) {
@@ -281,7 +324,13 @@ function draw() {
 
 // Démarre le jeu lorsque le bouton est cliqué
 document.getElementById("startGame").addEventListener("click", () => {
-  document.getElementById("startGame").style.display = "none"; // Cache le bouton après clic
+  console.log("Bouton démarrer cliqué");
+  document.getElementById("startGame").style.display = "none";
   backgroundMusic.play().catch(error => console.error("Erreur lors de la lecture de la musique de fond :", error));
   init(); // Initialise le jeu après avoir commencé la musique
 });
+
+// Appelle resizeCanvas lors du redimensionnement de la fenêtre
+window.addEventListener('resize', resizeCanvas);
+
+resizeCanvas
