@@ -285,6 +285,63 @@ footer {
     display: none; /* Affiche le message à la fin du jeu */
 }
 
+/* Styles spécifiques pour le jeu */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#breakoutCanvas {
+    width: 100%; /* Assure que le canvas utilise toute la largeur disponible */
+    height: auto; /* Maintient le ratio d'aspect du canvas */
+    border: 1px solid #000;
+    background-color: #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+#startGame {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#startGame:hover {
+    background-color: #0056b3;
+}
+
+/* Message d'orientation pour les petits écrans */
+.landscape-message {
+    display: none; /* Masquer par défaut, affiché uniquement sur orientation portrait */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+}
+
+@media (orientation: portrait) {
+    .landscape-message {
+        display: block;
+    }
+}
+
+
 /* Styles spécifiques pour le chatbot */
 #chatbox {
     border: 1px solid #ddd;
