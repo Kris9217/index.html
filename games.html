@@ -5,41 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Jeux</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-      /* Styles pour les boutons directionnels */
-      .directional-buttons {
-        position: absolute;
-        bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 10px;
-      }
-
-      #leftButton, #rightButton {
-        width: 80px;
-        height: 80px;
-        border: none;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-      }
-
-      #leftButton {
-        text-align: center;
-        border-radius: 50%;
-      }
-
-      #rightButton {
-        text-align: center;
-        border-radius: 50%;
-      }
-
-      .hidden {
-        display: none;
-      }
-    </style>
 </head>
 <body>
     <header>
@@ -58,13 +23,29 @@
 
     <main class="center-content">
         <div class="game-container">
-            <div class="landscape-message">Veuillez passer votre appareil en orientation paysage pour jouer.</div>
+            <div class="instructions" id="instructions">
+                <p>L'Impact du Codage de Jeux Vidéo sur l'Innovation Web : Une Stratégie Gagnante pour Séduire les Clients
+
+                    Dans le paysage numérique actuel, où l'innovation est synonyme de succès, le codage de jeux vidéo émerge comme un atout stratégique pour développer des projets web captivants et novateurs. Les compétences en développement de jeux vidéo, souvent perçues comme spécialisées, se révèlent être une véritable force pour créer des expériences en ligne engageantes qui captivent et fidélisent les utilisateurs.
+                    
+                    Le codage de jeux vidéo repose sur des principes fondamentaux de design interactif, de créativité et d’expérience utilisateur. En intégrant ces compétences dans le développement web, votre entreprise peut créer des projets qui ne sont pas seulement fonctionnels, mais aussi ludiques et immersifs. La gamification, ou l'utilisation des éléments de jeu dans des contextes non ludiques, est une tendance en forte croissance dans le développement web. Elle permet d’enrichir les expériences utilisateur en rendant les interactions plus dynamiques et motivantes.
+                    
+                    Les jeux vidéo nous enseignent comment concevoir des interfaces intuitives, des mécaniques de récompense engageantes, et des environnements interactifs qui maintiennent l’intérêt des utilisateurs. En appliquant ces techniques à des projets web, nous pouvons créer des sites et applications qui captent l'attention et suscitent l’enthousiasme. Par exemple, des fonctionnalités telles que des défis interactifs, des systèmes de points, ou des parcours personnalisés inspirés du monde du jeu peuvent transformer une simple visite web en une expérience mémorable.
+                    
+                    Au-delà de l’aspect ludique, le codage de jeux vidéo favorise également l'innovation en matière de conception. Les principes de narration et de progression utilisés dans les jeux peuvent être adaptés pour développer des contenus web captivants et interactifs. Cela permet non seulement de se démarquer de la concurrence, mais aussi de proposer des solutions uniques qui répondent aux besoins et aux attentes des clients d'une manière inédite.
+                    
+                    En investissant dans des compétences en codage de jeux vidéo, votre entreprise se positionne à la pointe de l’innovation. Vous aurez l'opportunité de créer des projets web qui non seulement attirent l’attention, mais qui engagent véritablement les utilisateurs. Ce type de créativité et d’interaction est ce qui plaît aux clients modernes, qui recherchent des expériences web aussi fascinantes que divertissantes.
+                    
+                    En somme, la maîtrise du codage de jeux vidéo est un levier puissant pour transformer vos projets web en expériences interactives de premier plan. En adoptant cette approche, vous pouvez non seulement répondre aux attentes croissantes des utilisateurs, mais également établir votre entreprise comme un leader dans la création de solutions web innovantes et captivantes.</p>
+            </div>
             <button id="startGame">Commencer le jeu</button>
             <canvas id="breakoutCanvas"></canvas>
             <div class="directional-buttons">
                 <button id="leftButton">←</button>
                 <button id="rightButton">→</button>
             </div>
+            <div class="score">Score : <span id="score">0</span></div>
+            <div class="message" id="endMessage">Vous avez terminé le jeu !</div>
         </div>
     </main>
 
@@ -73,6 +54,21 @@
     </footer>
 
     <script src="breakout.js"></script>
+    <script>
+        document.getElementById('startGame').addEventListener('click', function() {
+            // Cacher les instructions
+            document.getElementById('instructions').style.display = 'none';
+            // Montrer le canvas et les boutons directionnels si ce n'est pas déjà visible
+            document.getElementById('breakoutCanvas').style.display = 'block';
+            document.querySelector('.directional-buttons').style.display = 'flex';
+            // Initialiser le jeu ici
+            startGame();
+        });
+
+        function startGame() {
+            // Ajoutez ici la logique pour démarrer le jeu
+        }
+    </script>
 </body>
 </html>
 
